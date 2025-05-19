@@ -4,7 +4,8 @@
   "description": "��#\u0000 \u0000c\u0000a\u0000r\u0000t\u0000e\u0000n\u0000g\u0000i\u0000n\u0000e\u0000\r\u0000 \u0000",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,13 @@
   },
   "homepage": "https://github.com/genos-ux/cartengine#readme",
   "devDependencies": {
+    "@types/express": "^5.0.2",
     "@types/node": "^22.15.19",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
   }
 }
