@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/genos-ux/cartengine#readme",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.2",
     "@types/node": "^22.15.19",
     "nodemon": "^3.1.10",
