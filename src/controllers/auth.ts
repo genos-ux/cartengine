@@ -35,6 +35,8 @@ export const signup = async (
   });
   res.json(user);
 };
+
+
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
@@ -50,3 +52,9 @@ export const login = async (req: Request, res: Response) => {
 
   res.json({ user, accessToken });
 };
+
+// /me -> return the logged in user
+
+export const me = async(req:Request,res:Response) => {
+    res.json(req.user);
+}
