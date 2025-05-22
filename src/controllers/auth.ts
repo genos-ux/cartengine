@@ -56,5 +56,5 @@ export const login = async (req: Request, res: Response) => {
 // /me -> return the logged in user
 
 export const me = async(req:Request,res:Response) => {
-    res.json(req.user);
+    return res.json(req.user);
 }

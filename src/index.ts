@@ -5,6 +5,8 @@ import { PrismaClient } from "./generated/prisma";
 import { errorMiddleware } from "./middlewares/errors";
 import { SignupSchema } from "./schema/users";
 
+
+
 const app: Express = express();
 
 app.use(express.json());
@@ -19,4 +21,4 @@ export const prismaClient = new PrismaClient({
 
 app.use(errorMiddleware);
 
-app.listen(PORT, () => console.log("App working!"));
+app.listen(PORT, () => console.log(`Server is listening on PORT ${PORT}`));
