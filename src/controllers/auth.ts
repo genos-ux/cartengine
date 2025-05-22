@@ -14,11 +14,11 @@ export const signup = async (
   res: Response,
   next: NextFunction
 ) => {
-  SignupSchema.parse(req.body);
+  const validatedUser = SignupSchema.parse(req.body);
 
-  const { email, password, name } = req.body;
+//   const { email, password, name } = req.body;
 
-  let user = await prismaClient.user.findFirst({ where: { email } });
+  let user = await prismaClient.user.findFirst({ where: { email: validatedUser.email } });
 
   if (user)
     new BadRequestsException(
@@ -28,12 +28,12 @@ export const signup = async (
 
   user = await prismaClient.user.create({
     data: {
-      name,
-      email,
-      password: hashSync(password, 10),
+      name: validatedUser.name,
+      email: validatedUser.email,
+      password: hashSync(validatedUser.password, 10),
     },
   });
-  res.json(user);
+  res.json('User successfully created.');
 };
 
 
