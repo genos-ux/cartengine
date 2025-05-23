@@ -1,10 +1,11 @@
 import { Response, Request } from "express";
-import { AddressSchema } from "../schema/users";
+import { AddressSchema, updateUserSchema } from "../schema/users";
 import { NotFoundException } from "../exceptions/notFound";
 import { ErrorCode } from "../exceptions/root";
-import { User } from "../generated/prisma";
+import { Address, User } from "../generated/prisma";
 import { prismaClient } from "..";
 import { ZodError } from "zod";
+import { BadRequestsException } from "../exceptions/bad-requests";
 
 export const addAddress = async (req: Request, res: Response) => {
   const validatedAddress = AddressSchema.parse(req.body);
@@ -45,3 +46,48 @@ export const listAddress = async (req: Request, res: Response) => {
   });
   res.json(addresses);
 };
+
+export const updateUser = async(req:Request, res: Response) => {
+  const validatedData = updateUserSchema.parse(req.body);
+  let shippingAddress: Address;
+  let billingAddress: Address;
+
+  if(validatedData.defaultShippingAddress){
+
+    try {
+      shippingAddress = await prismaClient.address.findFirstOrThrow({
+        where: {
+          id: validatedData.defaultShippingAddress
+        },
+      });
+      if(shippingAddress.userId != req.user.id){
+        throw new BadRequestsException('Address does not belong to user.', ErrorCode.ADDRESS_DOES_NOT_BELONG)
+      }
+    } catch (error) {
+      throw new NotFoundException('Address not found.', ErrorCode.ADDRESS_NOT_FOUND);
+    }
+
+  }
+
+  if(validatedData.defaultBillingAddress){
+    try {
+      billingAddress = await prismaClient.address.findFirstOrThrow({
+        where: {
+          id: validatedData.defaultBillingAddress
+        }
+      })
+
+      if (billingAddress.userId != req.user.id) {
+        throw new BadRequestsException(
+          "Address does not belong to user.",
+          ErrorCode.ADDRESS_DOES_NOT_BELONG
+        );
+      }
+    } catch (error) {
+      throw new NotFoundException('Address not found.', ErrorCode.ADDRESS_NOT_FOUND)
+      
+    }
+  }
+
+  
+}
