@@ -8,6 +8,7 @@ import { ErrorCode } from "../exceptions/root";
 import { UnprocessableEntity } from "../exceptions/validation";
 import { SignupSchema } from "../schema/users";
 import { NotFoundException } from "../exceptions/notFound";
+import { Role } from "../generated/prisma";
 
 export const signup = async (
   req: Request,
@@ -31,6 +32,7 @@ export const signup = async (
       name: validatedUser.name,
       email: validatedUser.email,
       password: hashSync(validatedUser.password, 10),
+      role: validatedUser.role as Role
     },
   });
   res.json('User successfully created.');
