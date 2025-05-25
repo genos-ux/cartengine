@@ -5658,6 +5658,7 @@ export namespace Prisma {
     id: number | null
     userId: number | null
     netAmount: Decimal | null
+    status: $Enums.OrderEventStatus | null
     address: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5667,6 +5668,7 @@ export namespace Prisma {
     id: number | null
     userId: number | null
     netAmount: Decimal | null
+    status: $Enums.OrderEventStatus | null
     address: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5676,6 +5678,7 @@ export namespace Prisma {
     id: number
     userId: number
     netAmount: number
+    status: number
     address: number
     createdAt: number
     updatedAt: number
@@ -5699,6 +5702,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     netAmount?: true
+    status?: true
     address?: true
     createdAt?: true
     updatedAt?: true
@@ -5708,6 +5712,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     netAmount?: true
+    status?: true
     address?: true
     createdAt?: true
     updatedAt?: true
@@ -5717,6 +5722,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     netAmount?: true
+    status?: true
     address?: true
     createdAt?: true
     updatedAt?: true
@@ -5813,6 +5819,7 @@ export namespace Prisma {
     id: number
     userId: number
     netAmount: Decimal
+    status: $Enums.OrderEventStatus
     address: string
     createdAt: Date
     updatedAt: Date
@@ -5841,6 +5848,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     netAmount?: boolean
+    status?: boolean
     address?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5856,12 +5864,13 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     netAmount?: boolean
+    status?: boolean
     address?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "netAmount" | "address" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "netAmount" | "status" | "address" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     products?: boolean | Order$productsArgs<ExtArgs>
@@ -5880,6 +5889,7 @@ export namespace Prisma {
       id: number
       userId: number
       netAmount: Prisma.Decimal
+      status: $Enums.OrderEventStatus
       address: string
       createdAt: Date
       updatedAt: Date
@@ -6258,6 +6268,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Order", 'Int'>
     readonly userId: FieldRef<"Order", 'Int'>
     readonly netAmount: FieldRef<"Order", 'Decimal'>
+    readonly status: FieldRef<"Order", 'OrderEventStatus'>
     readonly address: FieldRef<"Order", 'String'>
     readonly createdAt: FieldRef<"Order", 'DateTime'>
     readonly updatedAt: FieldRef<"Order", 'DateTime'>
@@ -8698,6 +8709,7 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     netAmount: 'netAmount',
+    status: 'status',
     address: 'address',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -9133,6 +9145,7 @@ export namespace Prisma {
     id?: IntFilter<"Order"> | number
     userId?: IntFilter<"Order"> | number
     netAmount?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
+    status?: EnumOrderEventStatusFilter<"Order"> | $Enums.OrderEventStatus
     address?: StringFilter<"Order"> | string
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
@@ -9145,6 +9158,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     netAmount?: SortOrder
+    status?: SortOrder
     address?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9161,6 +9175,7 @@ export namespace Prisma {
     NOT?: OrderWhereInput | OrderWhereInput[]
     userId?: IntFilter<"Order"> | number
     netAmount?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
+    status?: EnumOrderEventStatusFilter<"Order"> | $Enums.OrderEventStatus
     address?: StringFilter<"Order"> | string
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
@@ -9173,6 +9188,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     netAmount?: SortOrder
+    status?: SortOrder
     address?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9190,6 +9206,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Order"> | number
     userId?: IntWithAggregatesFilter<"Order"> | number
     netAmount?: DecimalWithAggregatesFilter<"Order"> | Decimal | DecimalJsLike | number | string
+    status?: EnumOrderEventStatusWithAggregatesFilter<"Order"> | $Enums.OrderEventStatus
     address?: StringWithAggregatesFilter<"Order"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
@@ -9611,6 +9628,7 @@ export namespace Prisma {
 
   export type OrderCreateInput = {
     netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.OrderEventStatus
     address: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9623,6 +9641,7 @@ export namespace Prisma {
     id?: number
     userId: number
     netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.OrderEventStatus
     address: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9632,6 +9651,7 @@ export namespace Prisma {
 
   export type OrderUpdateInput = {
     netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumOrderEventStatusFieldUpdateOperationsInput | $Enums.OrderEventStatus
     address?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9644,6 +9664,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumOrderEventStatusFieldUpdateOperationsInput | $Enums.OrderEventStatus
     address?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9655,6 +9676,7 @@ export namespace Prisma {
     id?: number
     userId: number
     netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.OrderEventStatus
     address: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9662,6 +9684,7 @@ export namespace Prisma {
 
   export type OrderUpdateManyMutationInput = {
     netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumOrderEventStatusFieldUpdateOperationsInput | $Enums.OrderEventStatus
     address?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9671,6 +9694,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumOrderEventStatusFieldUpdateOperationsInput | $Enums.OrderEventStatus
     address?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10186,6 +10210,13 @@ export namespace Prisma {
     quantity?: SortOrder
   }
 
+  export type EnumOrderEventStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrderEventStatus | EnumOrderEventStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.OrderEventStatus[]
+    notIn?: $Enums.OrderEventStatus[]
+    not?: NestedEnumOrderEventStatusFilter<$PrismaModel> | $Enums.OrderEventStatus
+  }
+
   export type OrderEventListRelationFilter = {
     every?: OrderEventWhereInput
     some?: OrderEventWhereInput
@@ -10206,6 +10237,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     netAmount?: SortOrder
+    status?: SortOrder
     address?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10221,6 +10253,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     netAmount?: SortOrder
+    status?: SortOrder
     address?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10230,6 +10263,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     netAmount?: SortOrder
+    status?: SortOrder
     address?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10239,6 +10273,16 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     netAmount?: SortOrder
+  }
+
+  export type EnumOrderEventStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrderEventStatus | EnumOrderEventStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.OrderEventStatus[]
+    notIn?: $Enums.OrderEventStatus[]
+    not?: NestedEnumOrderEventStatusWithAggregatesFilter<$PrismaModel> | $Enums.OrderEventStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumOrderEventStatusFilter<$PrismaModel>
+    _max?: NestedEnumOrderEventStatusFilter<$PrismaModel>
   }
 
   export type OrderScalarRelationFilter = {
@@ -10287,13 +10331,6 @@ export namespace Prisma {
     quantity?: SortOrder
   }
 
-  export type EnumOrderEventStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.OrderEventStatus | EnumOrderEventStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.OrderEventStatus[]
-    notIn?: $Enums.OrderEventStatus[]
-    not?: NestedEnumOrderEventStatusFilter<$PrismaModel> | $Enums.OrderEventStatus
-  }
-
   export type OrderEventCountOrderByAggregateInput = {
     id?: SortOrder
     orderId?: SortOrder
@@ -10326,16 +10363,6 @@ export namespace Prisma {
   export type OrderEventSumOrderByAggregateInput = {
     id?: SortOrder
     orderId?: SortOrder
-  }
-
-  export type EnumOrderEventStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.OrderEventStatus | EnumOrderEventStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.OrderEventStatus[]
-    notIn?: $Enums.OrderEventStatus[]
-    not?: NestedEnumOrderEventStatusWithAggregatesFilter<$PrismaModel> | $Enums.OrderEventStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumOrderEventStatusFilter<$PrismaModel>
-    _max?: NestedEnumOrderEventStatusFilter<$PrismaModel>
   }
 
   export type AddressCreateNestedManyWithoutUserInput = {
@@ -10656,6 +10683,10 @@ export namespace Prisma {
     connect?: OrderEventWhereUniqueInput | OrderEventWhereUniqueInput[]
   }
 
+  export type EnumOrderEventStatusFieldUpdateOperationsInput = {
+    set?: $Enums.OrderEventStatus
+  }
+
   export type UserUpdateOneRequiredWithoutOrdersNestedInput = {
     create?: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
     connectOrCreate?: UserCreateOrConnectWithoutOrdersInput
@@ -10752,10 +10783,6 @@ export namespace Prisma {
     create?: XOR<OrderCreateWithoutEventsInput, OrderUncheckedCreateWithoutEventsInput>
     connectOrCreate?: OrderCreateOrConnectWithoutEventsInput
     connect?: OrderWhereUniqueInput
-  }
-
-  export type EnumOrderEventStatusFieldUpdateOperationsInput = {
-    set?: $Enums.OrderEventStatus
   }
 
   export type OrderUpdateOneRequiredWithoutEventsNestedInput = {
@@ -11025,6 +11052,7 @@ export namespace Prisma {
 
   export type OrderCreateWithoutUserInput = {
     netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.OrderEventStatus
     address: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11035,6 +11063,7 @@ export namespace Prisma {
   export type OrderUncheckedCreateWithoutUserInput = {
     id?: number
     netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.OrderEventStatus
     address: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11134,6 +11163,7 @@ export namespace Prisma {
     id?: IntFilter<"Order"> | number
     userId?: IntFilter<"Order"> | number
     netAmount?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
+    status?: EnumOrderEventStatusFilter<"Order"> | $Enums.OrderEventStatus
     address?: StringFilter<"Order"> | string
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
@@ -11570,6 +11600,7 @@ export namespace Prisma {
 
   export type OrderCreateWithoutProductsInput = {
     netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.OrderEventStatus
     address: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11581,6 +11612,7 @@ export namespace Prisma {
     id?: number
     userId: number
     netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.OrderEventStatus
     address: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11631,6 +11663,7 @@ export namespace Prisma {
 
   export type OrderUpdateWithoutProductsInput = {
     netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumOrderEventStatusFieldUpdateOperationsInput | $Enums.OrderEventStatus
     address?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11642,6 +11675,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumOrderEventStatusFieldUpdateOperationsInput | $Enums.OrderEventStatus
     address?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11682,6 +11716,7 @@ export namespace Prisma {
 
   export type OrderCreateWithoutEventsInput = {
     netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.OrderEventStatus
     address: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11693,6 +11728,7 @@ export namespace Prisma {
     id?: number
     userId: number
     netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.OrderEventStatus
     address: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11717,6 +11753,7 @@ export namespace Prisma {
 
   export type OrderUpdateWithoutEventsInput = {
     netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumOrderEventStatusFieldUpdateOperationsInput | $Enums.OrderEventStatus
     address?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11728,6 +11765,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumOrderEventStatusFieldUpdateOperationsInput | $Enums.OrderEventStatus
     address?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11756,6 +11794,7 @@ export namespace Prisma {
   export type OrderCreateManyUserInput = {
     id?: number
     netAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.OrderEventStatus
     address: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11818,6 +11857,7 @@ export namespace Prisma {
 
   export type OrderUpdateWithoutUserInput = {
     netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumOrderEventStatusFieldUpdateOperationsInput | $Enums.OrderEventStatus
     address?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11828,6 +11868,7 @@ export namespace Prisma {
   export type OrderUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumOrderEventStatusFieldUpdateOperationsInput | $Enums.OrderEventStatus
     address?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11838,6 +11879,7 @@ export namespace Prisma {
   export type OrderUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     netAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumOrderEventStatusFieldUpdateOperationsInput | $Enums.OrderEventStatus
     address?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

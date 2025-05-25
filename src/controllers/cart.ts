@@ -33,7 +33,7 @@ export const addItemToCart = async(req:Request, res:Response) => {
 export const deleteItemFromCart = async(req:Request, res:Response) => {
 
     try {
-        const cart = await prismaClient.cartItem.findFirst({
+        const cart = await prismaClient.cartItem.delete({
             where: {
                 id: +req.params.id
             }

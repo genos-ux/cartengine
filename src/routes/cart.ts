@@ -6,9 +6,9 @@ import { addItemToCart, changeQuantity, deleteItemFromCart, getCart } from "../c
 
 const cartRoutes:Router = Router();
 
-cartRoutes.post('/cart/:id', [authMiddleware], errorHandler(addItemToCart));
-cartRoutes.get('/cart', [authMiddleware], errorHandler(getCart));
-cartRoutes.delete('/cart/:id', [authMiddleware], errorHandler(deleteItemFromCart));
-cartRoutes.put('/cart/:id', [authMiddleware], errorHandler(changeQuantity));
+cartRoutes.post('/:id', [authMiddleware], errorHandler(addItemToCart));
+cartRoutes.get('/', [authMiddleware], errorHandler(getCart));
+cartRoutes.delete('/:id', [authMiddleware], errorHandler(deleteItemFromCart));
+cartRoutes.put('/:id', [authMiddleware], errorHandler(changeQuantity));
 
 export default cartRoutes;

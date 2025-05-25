@@ -6,10 +6,10 @@ import { adminMiddleware } from "../middlewares/admin";
 
 const productsRoute:Router = Router();
 
-productsRoute.post('/products',[authMiddleware, adminMiddleware],errorHandler(createProduct));
-productsRoute.put('/products/:id',[authMiddleware,adminMiddleware], errorHandler(updateProduct));
-productsRoute.delete('/products/:id',[authMiddleware,adminMiddleware], errorHandler(deleteProduct));
-productsRoute.get('/products', [authMiddleware], errorHandler(listProducts));
-productsRoute.get('/products/:id',[authMiddleware], errorHandler(getProductById));
+productsRoute.post('/',[authMiddleware, adminMiddleware],errorHandler(createProduct));
+productsRoute.put('/:id',[authMiddleware,adminMiddleware], errorHandler(updateProduct));
+productsRoute.delete('/:id',[authMiddleware,adminMiddleware], errorHandler(deleteProduct));
+productsRoute.get('/', [authMiddleware], errorHandler(listProducts));
+productsRoute.get('/:id',[authMiddleware], errorHandler(getProductById));
 
 export default productsRoute;

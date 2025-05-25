@@ -8,9 +8,9 @@ import orderRoute from "./orders";
 const rootRouter:Router = Router();
 
 rootRouter.use(authRoute);
-rootRouter.use(productsRoute);
-rootRouter.use(userRoutes);
-rootRouter.use(cartRoutes);
-rootRouter.use('/orders',orderRoute);
+rootRouter.use('/products',productsRoute);
+rootRouter.use('/address',userRoutes);
+rootRouter.use('/carts',cartRoutes);
+rootRouter.use('/orders/',orderRoute);
 
 export default rootRouter;
