@@ -5,7 +5,7 @@ export const SignupSchema = z.object({
   email: z.string().email(),
   password: z
     .string()
-    .min(6, { message: "Password must be at least 6 characters long" }),
+    .min(4, { message: "Password must be at least 6 characters long" }),
   role: z.enum(["USER", "ADMIN"]).default("USER"),
 });
 

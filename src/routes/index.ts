@@ -11,6 +11,6 @@ rootRouter.use(authRoute);
 rootRouter.use(productsRoute);
 rootRouter.use(userRoutes);
 rootRouter.use(cartRoutes);
-rootRouter.use(orderRoute);
+rootRouter.use('/orders',orderRoute);
 
 export default rootRouter;

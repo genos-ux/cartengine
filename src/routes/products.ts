@@ -9,7 +9,7 @@ const productsRoute:Router = Router();
 productsRoute.post('/products',[authMiddleware, adminMiddleware],errorHandler(createProduct));
 productsRoute.put('/products/:id',[authMiddleware,adminMiddleware], errorHandler(updateProduct));
 productsRoute.delete('/products/:id',[authMiddleware,adminMiddleware], errorHandler(deleteProduct));
-productsRoute.get('/products', [authMiddleware,adminMiddleware], errorHandler(listProducts));
-productsRoute.get('/products/:id',[authMiddleware,adminMiddleware], errorHandler(getProductById));
+productsRoute.get('/products', [authMiddleware], errorHandler(listProducts));
+productsRoute.get('/products/:id',[authMiddleware], errorHandler(getProductById));
 
 export default productsRoute;
