@@ -2,6 +2,7 @@ import { Response, Request } from "express";
 import { prismaClient } from "..";
 import { NotFoundException } from "../exceptions/notFound";
 import { ErrorCode } from "../exceptions/root";
+import { PrismaClientRustPanicError } from "../generated/prisma/runtime/library";
 
 export const createOrder = async(req:Request,res:Response) => {
     //Create a transaction
@@ -129,3 +130,73 @@ export const getOrderById = async(req:Request, res: Response) => {
         throw new NotFoundException('Order not found.', ErrorCode.ORDER_NOT_FOUND)
     }
 }
+
+// admin-controlled
+
+export const listAllOrders = async(req:Request, res: Response) => {
+    let whereClause = {
+
+    }
+    const status = req.params.status
+    if(status) {
+        whereClause = {
+            status
+        }
+    }
+    const orders = await prismaClient.order.findMany({
+        where: whereClause,
+        skip: +req.query.skip! || 0,
+        take: 5
+    })
+
+    res.status(200).json(orders);
+
+}
+
+export const changeStatus = async(req:Request, res: Response) => {
+    // wrap this inside transaction
+    try {
+        const order = await prismaClient.order.update({
+            where: {
+                id: +req.params.id
+            },
+            data: {
+                status: req.body.status
+            }
+        })
+
+        await prismaClient.orderEvent.create({
+            data: {
+                orderId: order.id,
+                status: req.body.status
+            }
+        })
+
+        return res.status(200).json(order);
+        
+    } catch (error) {
+        throw new NotFoundException('Order not found.', ErrorCode.ORDER_NOT_FOUND)
+    }
+}
+
+export const listUserOrders = async(req:Request, res:Response) => {
+    let whereClause = {
+        userId : +req.params.id
+    }
+    const status = req.params.status;
+    if(status){
+        whereClause = {
+            ...whereClause,
+            
+        }
+    }
+
+    const orders = await prismaClient.order.findMany({
+        where: whereClause,
+        skip: +req.query.skip! || 0,
+        take: 5
+    })
+
+    res.json(orders);
+}
+
