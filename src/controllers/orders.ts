@@ -134,10 +134,8 @@ export const getOrderById = async(req:Request, res: Response) => {
 // admin-controlled
 
 export const listAllOrders = async(req:Request, res: Response) => {
-    let whereClause = {
-
-    }
-    const status = req.params.status
+    let whereClause = {}
+    const status = req.query.status
     if(status) {
         whereClause = {
             status
@@ -180,23 +178,16 @@ export const changeStatus = async(req:Request, res: Response) => {
 }
 
 export const listUserOrders = async(req:Request, res:Response) => {
-    let whereClause = {
-        userId : +req.params.id
+    try {
+        const order = await prismaClient.order.findFirstOrThrow({
+            where:{
+                userId: +req.params.id
+            }
+        })
+    
+        res.json(order);
+    } catch (error) {
+        throw new NotFoundException('User not found.', ErrorCode.USER_NOT_FOUND);
     }
-    const status = req.params.status;
-    if(status){
-        whereClause = {
-            ...whereClause,
-            
-        }
-    }
-
-    const orders = await prismaClient.order.findMany({
-        where: whereClause,
-        skip: +req.query.skip! || 0,
-        take: 5
-    })
-
-    res.json(orders);
 }
 
