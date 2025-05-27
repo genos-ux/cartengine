@@ -130,6 +130,13 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.UserRefreshTokensScalarFieldEnum = {
+  id: 'id',
+  refreshToken: 'refreshToken',
+  userId: 'userId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.AddressScalarFieldEnum = {
   id: 'id',
   lineOne: 'lineOne',
@@ -199,6 +206,10 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
   password: 'password'
 };
 
+exports.Prisma.UserRefreshTokensOrderByRelevanceFieldEnum = {
+  refreshToken: 'refreshToken'
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
@@ -236,6 +247,7 @@ exports.OrderEventStatus = exports.$Enums.OrderEventStatus = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  UserRefreshTokens: 'UserRefreshTokens',
   Address: 'Address',
   Product: 'Product',
   CartItem: 'CartItem',
