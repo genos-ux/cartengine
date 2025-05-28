@@ -22,7 +22,8 @@ passport.use(
               email,
               name: profile.displayName,
               password: '', 
-              role: 'USER'
+              role: 'USER',
+              provider: 'google'
             //   avatar: profile.photos?.[0].value || undefined,
               // You can set a role or any other defaults here
             },

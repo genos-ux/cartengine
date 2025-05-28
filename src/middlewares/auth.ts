@@ -1,46 +1,6 @@
-// import { NextFunction, Request, Response } from "express";
-// import { UnauthorizedException } from "../exceptions/unauthorized";
-// import { ErrorCode } from "../exceptions/root";
-// import * as jwt from "jsonwebtoken";
-// import { JWT_SECRET_KEY } from "../secrets";
-// import { prismaClient } from "..";
-// import { User } from "../generated/prisma";
-
-// export const authMiddleware = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   //Extract the token from header
-//   const authHeader = req.headers.authorization;
-//   // If token is not present, thown an error of unauthorized
-//   if (!authHeader) {
-//     next(new UnauthorizedException("Unauthorized", ErrorCode.UNAUTHORIZED));
-//     return;
-//   }
-//   try {
-//     // If the token is present, verify that token and extract the payload
-//     const token = authHeader.split(" ")[1]; // gets only the token part
-
-//     const payload = jwt.verify(token, JWT_SECRET_KEY) as any;
-//     // to get the user from the payload
-//     const user = await prismaClient.user.findFirst({
-//       where: { id: payload.userId },
-//     });
-//     if (!user) {
-//       next(new UnauthorizedException("Unauthorized", ErrorCode.UNAUTHORIZED));
-//     }
-//     // to attach the user to the current request object
-//     req.user = user;
-//     next();
-//   } catch (error) {
-//     next(new UnauthorizedException("Unauthorized", ErrorCode.UNAUTHORIZED));
-//   }
-// };
-
-
 import passport from "passport";
 import { Request, Response, NextFunction } from "express";
+import { generateTokens } from "../utils/token";
 
 export const authMiddleware = (
   req: Request,
@@ -56,3 +16,33 @@ export const authMiddleware = (
     next();
   })(req, res, next);
 };
+
+// Start Google OAuth flow
+export const googleAuthMiddleware = passport.authenticate("google", {
+  scope: ["profile", "email"],
+});
+
+// Handle callback from Google
+// export const googleCallbackMiddleware = (req: Request, res: Response, next: NextFunction) => {
+//   passport.authenticate("google", { session: false }, (err, user, info) => {
+//     if (err || !user) {
+//       return res.redirect("/login?error=OAuthFailed"); // or send error JSON
+//     }
+//     // Here you can generate your JWT tokens and respond
+//     // You could also redirect to frontend with tokens via query
+//     // req.user = user; // if needed downstream
+//     // Generate token logic here or call next middleware
+//     // Example:
+//     // const token = generateToken(user);
+//     // return res.redirect(`https://yourfrontend.com?token=${token}`)
+
+//     const {accessToken,refreshToken}  = generateTokens(user);
+//     next();
+//   })(req, res, next);
+// };
+
+export const googleCallbackMiddleware = (req:Request, res: Response) => {
+  const user = req.user!;
+
+  const {accessToken, refreshToken} = generateTokens(user);
+}

@@ -10,6 +10,7 @@ import { SignupSchema } from "../schema/users";
 import { NotFoundException } from "../exceptions/notFound";
 import { Role } from "../generated/prisma";
 import { UnauthorizedException } from "../exceptions/unauthorized";
+import { generateTokens } from "../utils/token";
 
 export const signup = async (
   req: Request,
@@ -54,9 +55,11 @@ export const login = async (req: Request, res: Response) => {
     throw new BadRequestsException('Incorrect password', ErrorCode.INCORRECT_PASSWORD);
   }
 
-  const accessToken = jwt.sign({ userId: user.id }, JWT_SECRET_KEY, {subject: 'accessToken',expiresIn: '20m'});
+  // const accessToken = jwt.sign({ userId: user.id }, JWT_SECRET_KEY, {subject: 'accessToken',expiresIn: '20m'});
 
-  const refreshToken = jwt.sign({userId: user.id}, JWT_REFRESH_SECRET, {subject: 'refreshToken', expiresIn: '1h'} );
+  // const refreshToken = jwt.sign({userId: user.id}, JWT_REFRESH_SECRET, {subject: 'refreshToken', expiresIn: '1h'} );
+
+  const { accessToken, refreshToken } = generateTokens(user);
 
   await prismaClient.userRefreshTokens.create({
     data: {
