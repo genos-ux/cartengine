@@ -3,6 +3,7 @@ import { prismaClient } from "..";
 import { createProductsSchema } from "../schema/products";
 import { NotFoundException } from "../exceptions/notFound";
 import { ErrorCode } from "../exceptions/root";
+import { Prisma } from "../generated/prisma";
 
 
 export const createProduct = async(req:Request,res:Response) => {
@@ -38,7 +39,10 @@ export const updateProduct = async(req:Request, res: Response) => {
             data: product
         })
 
-        res.json(updatedProduct);
+        //Inside updateProduct
+        console.log("UPDATE product called", req.params.id);
+
+        return res.json(updatedProduct);
         
     } catch (error) {
         throw new NotFoundException('Product not found.', ErrorCode.PRODUCT_NOT_FOUND);
@@ -46,13 +50,31 @@ export const updateProduct = async(req:Request, res: Response) => {
 }
 
 export const deleteProduct = async(req:Request, res:Response) => {
-    const product = await prismaClient.product.delete({
+    try {
+      await prismaClient.product.delete({
         where: {
-            id: +req.params.id
-        }
-    })
+          id: +req.params.id,
+        },
+      });
 
-    res.json('Product successfully deleted.')
+      // Inside deleteProduct
+      console.log("🔥 DELETE product called:", req.params.id);
+
+      return res.status(200).json("Product successfully deleted.");
+    } catch (error) {
+        if (
+          error instanceof Prisma.PrismaClientKnownRequestError &&
+          error.code === "P2025"
+        ){
+            throw new NotFoundException(
+              "Product not found.",
+              ErrorCode.PRODUCT_NOT_FOUND
+            );
+        }
+
+        throw error;
+          
+    }
 
 }
 

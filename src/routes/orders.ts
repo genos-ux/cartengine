@@ -10,7 +10,7 @@ import {
   listOrders,
   listUserOrders,
 } from "../controllers/orders";
-import { adminMiddleware } from "../middlewares/admin";
+import { isAuthorised } from "../middlewares/requireRole";
 
 const orderRoute: Router = Router();
 
@@ -20,19 +20,22 @@ orderRoute.put("/:id/cancel", [authMiddleware], errorHandler(cancelOrder));
 
 orderRoute.get(
   "/index",
-  [authMiddleware, adminMiddleware],
+  authMiddleware,
+  isAuthorised(["ADMIN"]),
   errorHandler(listAllOrders)
 );
 orderRoute.get(
   "/users/:id",
-  [authMiddleware, adminMiddleware],
+  authMiddleware,
+  isAuthorised(["ADMIN"]),
   errorHandler(listUserOrders)
 );
 orderRoute.put(
   "/:id/status",
-  [authMiddleware, adminMiddleware],
+  authMiddleware,
+  isAuthorised(["ADMIN"]),
   errorHandler(changeStatus)
 );
-orderRoute.get("/:id", [authMiddleware], errorHandler(getOrderById));
+orderRoute.get("/:id", authMiddleware, errorHandler(getOrderById));
 
 export default orderRoute;

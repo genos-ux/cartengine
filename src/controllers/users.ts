@@ -11,7 +11,7 @@ export const addAddress = async (req: Request, res: Response) => {
   const validatedAddress = AddressSchema.parse(req.body);
 
   const user = await prismaClient.user.findFirstOrThrow({
-    where: { id: req.user.id },
+    where: { id: req.user?.id },
   });
 
   const address = await prismaClient.address.create({
@@ -41,7 +41,7 @@ export const deleteAddress = async (req: Request, res: Response) => {
 export const listAddress = async (req: Request, res: Response) => {
   const addresses = await prismaClient.address.findMany({
     where: {
-      userId: req.user.id
+      userId: req.user?.id
     }
   });
   res.json(addresses);
@@ -60,7 +60,7 @@ export const updateUser = async(req:Request, res: Response) => {
           id: validatedData.defaultShippingAddress
         },
       });
-      if(shippingAddress.userId != req.user.id){
+      if(shippingAddress.userId != req.user?.id){
         throw new BadRequestsException('Address does not belong to user.', ErrorCode.ADDRESS_DOES_NOT_BELONG)
       }
     } catch (error) {
@@ -77,7 +77,7 @@ export const updateUser = async(req:Request, res: Response) => {
         }
       })
 
-      if (billingAddress.userId != req.user.id) {
+      if (billingAddress.userId != req.user?.id) {
         throw new BadRequestsException(
           "Address does not belong to user.",
           ErrorCode.ADDRESS_DOES_NOT_BELONG

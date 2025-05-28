@@ -51,9 +51,9 @@ export const login = async (req: Request, res: Response) => {
     throw new BadRequestsException('Incorrect password', ErrorCode.INCORRECT_PASSWORD);
   }
 
-  const accessToken = jwt.sign({ userId: user.id }, JWT_SECRET_KEY, {subject: 'accessToken',expiresIn: '30s'});
+  const accessToken = jwt.sign({ userId: user.id }, JWT_SECRET_KEY, {subject: 'accessToken',expiresIn: '20m'});
 
-  const refreshToken = jwt.sign({userId: user.id}, JWT_REFRESH_SECRET, {subject: 'refreshToken', expiresIn: '1m'} );
+  const refreshToken = jwt.sign({userId: user.id}, JWT_REFRESH_SECRET, {subject: 'refreshToken', expiresIn: '1h'} );
 
   await prismaClient.userRefreshTokens.create({
     data: {
@@ -65,7 +65,7 @@ export const login = async (req: Request, res: Response) => {
   return res.status(200).json({
     id: user.id,
     name: user.name,
-    email: user.email,
+    role: user.role,
     accessToken,
     refreshToken
   })
@@ -129,5 +129,5 @@ export const refreshToken = async(req:Request, res:Response) => {
 // /me -> return the logged in user
 
 export const me = async(req:Request,res:Response) => {
-    return res.json(req.user);
+  return res.json(req.user);
 }

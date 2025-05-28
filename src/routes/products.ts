@@ -2,7 +2,8 @@ import { Router } from "express";
 import { errorHandler } from "../errorHandler";
 import { createProduct, deleteProduct, getProductById, listProducts, searchProducts, updateProduct } from "../controllers/products";
 import { authMiddleware } from "../middlewares/auth";
-import { isAuthorised } from "../middlewares/admin";
+import { isAuthorised } from "../middlewares/requireRole";
+
 
 const productsRoute:Router = Router();
 

@@ -6,7 +6,6 @@ import { errorMiddleware } from "./middlewares/errors";
 import passport from "./config/passport";
 
 
-
 const app: Express = express();
 
 app.use(express.json());

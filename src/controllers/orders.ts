@@ -9,7 +9,7 @@ export const createOrder = async(req:Request,res:Response) => {
     return await prismaClient.$transaction(async(tx) => {
         const cartItems = await tx.cartItem.findMany({
             where: {
-                userId: req.user.id
+                userId: req.user?.id
             },
             include: {
                 product: true
@@ -26,13 +26,13 @@ export const createOrder = async(req:Request,res:Response) => {
 
         const address = await tx.address.findFirst({
             where: {
-                id: req.user.defaultShippingAddress
+                id: req.user?.id
             }
         })
 
         const order = await tx.order.create({
             data: {
-                userId: req.user.id,
+                userId: req.user!.id,
                 netAmount: price,
                 address: address?.formattedAddress ?? "no address provided",
                 products: {
@@ -76,7 +76,7 @@ export const listOrders = async(req:Request, res: Response) => {
 
     const orders = await prismaClient.order.findMany({
         where: {
-            userId: req.user.id
+            userId: req.user?.id
         }
     })
 
@@ -92,7 +92,7 @@ export const cancelOrder = async(req:Request, res: Response) => {
         const orderCancel = await prismaClient.order.update({
             where: {
                 id: +req.params.id,
-                userId: req.user.id
+                userId: req.user?.id
             },
             data: {
                 status: 'CANCELLED'

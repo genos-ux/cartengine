@@ -21,7 +21,7 @@ export const addItemToCart = async(req:Request, res:Response) => {
 
     const cart = await prismaClient.cartItem.create({
         data: {
-            userId: req.user.id,
+            userId: req.user!.id,
             productId: +req.params.id,
             quantity: validatedData.quantity
         }
@@ -66,7 +66,7 @@ export const changeQuantity = async(req:Request, res:Response) => {
 export const getCart = async(req:Request, res:Response) => {
     const cart = await prismaClient.cartItem.findMany({
         where: {
-            userId: req.user.id
+            userId: req.user?.id
         },
         include: {
             product: true
