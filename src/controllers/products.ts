@@ -39,9 +39,6 @@ export const updateProduct = async(req:Request, res: Response) => {
             data: product
         })
 
-        //Inside updateProduct
-        console.log("UPDATE product called", req.params.id);
-
         return res.json(updatedProduct);
         
     } catch (error) {
@@ -56,9 +53,6 @@ export const deleteProduct = async(req:Request, res:Response) => {
           id: +req.params.id,
         },
       });
-
-      // Inside deleteProduct
-      console.log("🔥 DELETE product called:", req.params.id);
 
       return res.status(200).json("Product successfully deleted.");
     } catch (error) {
