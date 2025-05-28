@@ -132,6 +132,26 @@ export const refreshToken = async(req:Request, res:Response) => {
   }
 }
 
+export const googleCallbackController = async(req:Request,res:Response) => {
+    const user = req.user!;
+    const { accessToken, refreshToken } = generateTokens(user);
+
+    await prismaClient.userRefreshTokens.create({
+      data: {
+        refreshToken,
+        userId: user.id,
+      },
+    });
+    // frontend route later
+    // res.redirect(`https://yourfrontend.com?accessToken=${accessToken}`);
+    res.json({
+      message: "Google authentication successful",
+      accessToken,
+      refreshToken,
+      user,
+    });
+}
+
 // /me -> return the logged in user
 
 export const me = async(req:Request,res:Response) => {
