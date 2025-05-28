@@ -77,7 +77,7 @@ export const refreshToken = async(req:Request, res:Response) => {
     const {refreshToken} = req.body;
   
     if(!refreshToken){
-      return res.status(401).json({message: 'Referesh token not found.'})
+      return res.status(401).json({message: 'Refresh token not found.'})
     }
   
     const decodedRefreshToken = jwt.verify(

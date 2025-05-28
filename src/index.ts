@@ -3,7 +3,8 @@ import { PORT } from "./secrets";
 import rootRouter from "./routes";
 import { PrismaClient } from "./generated/prisma";
 import { errorMiddleware } from "./middlewares/errors";
-import { SignupSchema } from "./schema/users";
+import passport from "./config/passport";
+
 
 
 const app: Express = express();
@@ -11,6 +12,8 @@ const app: Express = express();
 app.use(express.json());
 
 app.use(errorMiddleware);
+
+app.use(passport.initialize())
 
 app.use('/api',rootRouter);
 
