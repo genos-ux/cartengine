@@ -19,8 +19,6 @@ export const signup = async (
 ) => {
   const validatedUser = SignupSchema.parse(req.body);
 
-//   const { email, password, name } = req.body;
-
   let user = await prismaClient.user.findFirst({ where: { email: validatedUser.email } });
 
   if (user)
@@ -34,7 +32,8 @@ export const signup = async (
       name: validatedUser.name,
       email: validatedUser.email,
       password: hashSync(validatedUser.password, 10),
-      role: validatedUser.role as Role
+      role: validatedUser.role as Role,
+      provider: 'local'
     },
   });
   res.json('User successfully created.');
@@ -54,10 +53,6 @@ export const login = async (req: Request, res: Response) => {
   if (!isPasswordCorrect) {
     throw new BadRequestsException('Incorrect password', ErrorCode.INCORRECT_PASSWORD);
   }
-
-  // const accessToken = jwt.sign({ userId: user.id }, JWT_SECRET_KEY, {subject: 'accessToken',expiresIn: '20m'});
-
-  // const refreshToken = jwt.sign({userId: user.id}, JWT_REFRESH_SECRET, {subject: 'refreshToken', expiresIn: '1h'} );
 
   const { accessToken, refreshToken } = generateTokens(user);
 

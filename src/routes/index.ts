@@ -7,7 +7,7 @@ import orderRoute from "./orders";
 
 const rootRouter:Router = Router();
 
-rootRouter.use('auth',authRoute);
+rootRouter.use('/auth',authRoute);
 rootRouter.use('/products',productsRoute);
 rootRouter.use('/users',userRoutes);
 rootRouter.use('/carts',cartRoutes);

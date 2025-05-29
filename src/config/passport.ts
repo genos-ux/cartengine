@@ -15,12 +15,12 @@ passport.use(
                 where: {id: jwt_payload.userId}
             })
             if(user){
-                return done(null,user) //attaches user to req.user
+                return done(null,user)
             }else{
-                return done(null,false); //no user found
+                return done(null,false);
             }
         } catch (error) {
-            return done(error, false); //internal error
+            return done(error, false);
             
         }
 

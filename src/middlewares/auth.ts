@@ -1,7 +1,5 @@
 import passport from "passport";
 import { Request, Response, NextFunction } from "express";
-import { generateTokens } from "../utils/token";
-import { prismaClient } from "..";
 
 export const authMiddleware = (
   req: Request,
@@ -28,8 +26,9 @@ export const googleAuthMiddleware = passport.authenticate("google", {
 });
 
 export const googleCallbackMiddleware = (req: Request, res:Response, next:NextFunction) => {
-  passport.authenticate("google", { session: false }, (err, user) => {
+  passport.authenticate("google", { session: false }, (err:Error, user:Express.User,info:any) => {
     if (err || !user) return res.redirect("/login?error=OAuthFailed");
+
     req.user = user;
     next();
   })(req, res, next);

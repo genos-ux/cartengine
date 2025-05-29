@@ -3,8 +3,8 @@ import { PORT } from "./secrets";
 import rootRouter from "./routes";
 import { PrismaClient } from "./generated/prisma";
 import { errorMiddleware } from "./middlewares/errors";
-import passport from "./config/passport";
-
+import passport from "./config/passport"; 
+import "./config/googleStrategy"
 
 const app: Express = express();
 
