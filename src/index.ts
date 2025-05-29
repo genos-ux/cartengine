@@ -5,6 +5,7 @@ import { errorMiddleware } from "./middlewares/errors";
 import passport from "./config/passport";
 import { envDetails } from "./config/secrets";
 import "./config/googleStrategy";
+import "./config/discordStrategy";
 
 const app: Express = express();
 

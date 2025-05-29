@@ -167,6 +167,25 @@ export const googleCallbackController = async (req: Request, res: Response) => {
   });
 };
 
+export const discordCallbackController = async(req: Request, res:Response) => {
+  const user = req.user!;
+  const {accessToken, refreshToken} = generateTokens(user);
+
+  await prismaClient.userRefreshTokens.create({
+    data: {
+      refreshToken,
+      userId: req.user!.id
+    }
+  })
+
+  res.json({
+    message: "Discord authentication successful",
+    accessToken,
+    refreshToken,
+    user
+  })
+}
+
 // /me -> return the logged in user
 
 export const me = async (req: Request, res: Response) => {

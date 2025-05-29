@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { googleCallbackController, login, me, refreshToken, signup } from "../controllers/auth";
+import { discordCallbackController, googleCallbackController, login, me, refreshToken, signup } from "../controllers/auth";
 import { errorHandler } from "../errorHandler";
-import { authMiddleware, googleAuthMiddleware, googleCallbackMiddleware } from "../middlewares/auth";
+import { authMiddleware, discordAuthMiddleware, googleAuthMiddleware, googleCallbackMiddleware } from "../middlewares/auth";
 
 const authRoute:Router = Router();
 
@@ -16,6 +16,9 @@ authRoute.get('/google', googleAuthMiddleware);
 
 // Callback google route
 authRoute.get('/google/callback',googleCallbackMiddleware,googleCallbackController);
+
+authRoute.get('/discord', discordAuthMiddleware);
+authRoute.get('/discord/callback',discordAuthMiddleware,discordCallbackController);
 
 authRoute.get('/me', authMiddleware, errorHandler(me));
 
