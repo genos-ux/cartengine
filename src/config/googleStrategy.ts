@@ -1,14 +1,16 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from "../secrets";
 import { prismaClient } from "..";
+import { envDetails } from "./secrets";
+
+const {GOOGLE_CALLBACK_URL,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET} = envDetails;
 
 passport.use(
   new GoogleStrategy(
     {
       clientID: GOOGLE_CLIENT_ID!,
       clientSecret: GOOGLE_CLIENT_SECRET!,
-      callbackURL: "http://localhost:3000/api/auth/google/callback",
+      callbackURL: GOOGLE_CALLBACK_URL!,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
