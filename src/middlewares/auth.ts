@@ -22,7 +22,7 @@ export const authMiddleware = (
 
 // Start Google OAuth flow
 export const googleAuthMiddleware = passport.authenticate("google", {
-  scope: ["profile", "email"],
+  scope: ["profile", "email"],session:false
 });
 
 export const googleCallbackMiddleware = (req: Request, res:Response, next:NextFunction) => {
@@ -33,3 +33,16 @@ export const googleCallbackMiddleware = (req: Request, res:Response, next:NextFu
     next();
   })(req, res, next);
 };
+
+export const discordAuthMiddleware = passport.authenticate("discord",{
+  scope: ["identity","email"], session:false
+})
+
+export const discordCallbackMiddleware = (req:Request,res:Response, next:NextFunction) => {
+  passport.authenticate("discord", {session:false},(err:Error, user:Express.User, info:any) => {
+    if(err || !user) return res.redirect("/login?error=OAuthFailed");
+
+    req.user = user;
+    next();
+  })(req, res, next);
+}
