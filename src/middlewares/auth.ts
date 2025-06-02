@@ -35,7 +35,7 @@ export const googleCallbackMiddleware = (req: Request, res:Response, next:NextFu
 };
 
 export const discordAuthMiddleware = passport.authenticate("discord",{
-  scope: ["identity","email"], session:false
+  scope: ["identify","email"], session:false
 })
 
 export const discordCallbackMiddleware = (req:Request,res:Response, next:NextFunction) => {

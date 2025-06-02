@@ -16,6 +16,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
+        console.log("DISCORD PROFILE:", profile);
         const email = profile.email!;
         let user = await prismaClient.user.findUnique({ where: { email } });
 

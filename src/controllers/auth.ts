@@ -96,6 +96,12 @@ export const refreshToken = async (req: Request, res: Response) => {
       JWT_REFRESH_SECRET
     ) as jwt.JwtPayload;
 
+    const user = await prismaClient.user.findFirst({
+      where: {
+        id: decodedRefreshToken.userId
+      }
+    })
+
     const userRefreshToken =
       await prismaClient.userRefreshTokens.findFirstOrThrow({
         where: {
@@ -177,6 +183,8 @@ export const discordCallbackController = async(req: Request, res:Response) => {
       userId: req.user!.id
     }
   })
+
+  // res.redirect(`https://haprian-naturals.netlify.app?accessToken=${accessToken}?refreshToken=${refreshToken}`);
 
   res.json({
     message: "Discord authentication successful",

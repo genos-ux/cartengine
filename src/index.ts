@@ -6,6 +6,7 @@ import passport from "./config/passport";
 import { envDetails } from "./config/secrets";
 import "./config/googleStrategy";
 import "./config/discordStrategy";
+import { arcjetMiddleware } from "./middlewares/arcjet";
 
 const app: Express = express();
 
@@ -16,6 +17,9 @@ app.use(express.json());
 app.use(errorMiddleware);
 
 app.use(passport.initialize());
+
+// apply arcjet rate-limit to all routes
+app.use(arcjetMiddleware);
 
 app.use("/api", rootRouter);
 
