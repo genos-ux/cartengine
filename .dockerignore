@@ -1,0 +1,29 @@
+# Node modules (reinstalled inside Docker)
+node_modules
+
+# Output folder from TypeScript build
+dist
+
+# Environment variables
+.env
+.env.local
+
+# Logs
+*.log
+
+# OS-specific junk
+.DS_Store
+Thumbs.db
+
+# Test files (optional)
+coverage
+*.test.ts
+*.spec.ts
+
+# Git stuff
+.git
+.gitignore
+
+# Editor configs
+.vscode
+.idea

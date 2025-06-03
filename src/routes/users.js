@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const users_1 = require("../controllers/users");
+const errorHandler_1 = require("../errorHandler");
+const requireRole_1 = require("../middlewares/requireRole");
+const auth_1 = require("../middlewares/auth");
+const userRoutes = (0, express_1.Router)();
+userRoutes.post("/address", [auth_1.authMiddleware], (0, errorHandler_1.errorHandler)(users_1.addAddress));
+userRoutes.delete("/address/:id", [auth_1.authMiddleware], (0, errorHandler_1.errorHandler)(users_1.deleteAddress));
+userRoutes.get("/address", [auth_1.authMiddleware], (0, errorHandler_1.errorHandler)(users_1.listAddress));
+userRoutes.put("/address", [auth_1.authMiddleware], (0, errorHandler_1.errorHandler)(users_1.updateUser));
+userRoutes.patch("/role/:id", auth_1.authMiddleware, (0, requireRole_1.isAuthorised)(["ADMIN"]), (0, errorHandler_1.errorHandler)(users_1.changeUserRole));
+userRoutes.get("/", auth_1.authMiddleware, (0, requireRole_1.isAuthorised)(["ADMIN"]), (0, errorHandler_1.errorHandler)(users_1.listUsers));
+userRoutes.get("/:id", auth_1.authMiddleware, (0, requireRole_1.isAuthorised)(["ADMIN"]), (0, errorHandler_1.errorHandler)(users_1.getUserById));
+exports.default = userRoutes;
