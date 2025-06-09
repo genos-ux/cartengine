@@ -17,6 +17,7 @@ import { NotFoundException } from "../exceptions/notFound";
 import { Role } from "../generated/prisma";
 import { UnauthorizedException } from "../exceptions/unauthorized";
 import { generateTokens } from "../utils/token";
+import { userSignUp } from "../utils/mailing";
 
 export const signup = async (
   req: Request,
@@ -34,6 +35,8 @@ export const signup = async (
       "User already exists!",
       ErrorCode.USER_ALREADY_EXISTS
     );
+
+  await userSignUp(validatedUser.email, validatedUser.name);
 
   user = await prismaClient.user.create({
     data: {
@@ -83,7 +86,7 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const refreshToken = async (req: Request, res: Response) => {
-  const {JWT_REFRESH_SECRET, JWT_SECRET_KEY} = envDetails;
+  const { JWT_REFRESH_SECRET, JWT_SECRET_KEY } = envDetails;
   try {
     const { refreshToken } = req.body;
 
@@ -98,9 +101,9 @@ export const refreshToken = async (req: Request, res: Response) => {
 
     const user = await prismaClient.user.findFirst({
       where: {
-        id: decodedRefreshToken.userId
-      }
-    })
+        id: decodedRefreshToken.userId,
+      },
+    });
 
     const userRefreshToken =
       await prismaClient.userRefreshTokens.findFirstOrThrow({
@@ -173,16 +176,19 @@ export const googleCallbackController = async (req: Request, res: Response) => {
   });
 };
 
-export const discordCallbackController = async(req: Request, res:Response) => {
+export const discordCallbackController = async (
+  req: Request,
+  res: Response
+) => {
   const user = req.user!;
-  const {accessToken, refreshToken} = generateTokens(user);
+  const { accessToken, refreshToken } = generateTokens(user);
 
   await prismaClient.userRefreshTokens.create({
     data: {
       refreshToken,
-      userId: req.user!.id
-    }
-  })
+      userId: req.user!.id,
+    },
+  });
 
   // res.redirect(`https://haprian-naturals.netlify.app?accessToken=${accessToken}?refreshToken=${refreshToken}`);
 
@@ -190,9 +196,9 @@ export const discordCallbackController = async(req: Request, res:Response) => {
     message: "Discord authentication successful",
     accessToken,
     refreshToken,
-    user
-  })
-}
+    user,
+  });
+};
 
 // /me -> return the logged in user
 

@@ -21,7 +21,7 @@ const transporter = nodemailer.createTransport({
     }
 })
 
-export const sendVerificationEmail = async (to:string, verificationCode:string, username:string) => {
+export const userSignUp = async (to:string,username:string) => {
   const mailOptions = {
     from: `"Haprian Naturals" <${process.env.USER_EMAIL}>`,
     to: to,
@@ -112,9 +112,7 @@ export const sendVerificationEmail = async (to:string, verificationCode:string, 
         <p>Hi ${username},</p>
         <p>Thank you for signing up to HAPRIAN NATURALS, your premier destination for affordable, quality and 100% organic skincare and haircare products.</p>
         <p>Please use the following code to confirm your email address:</p>
-        <div class="code">${verificationCode}</div>
-        <p>Copy the code above and paste it in the verification field on our website to complete your registration.</p>
-        <p>If you did not sign up to HAPRIAN NATURALS, feel free to ignore this email.</p>
+        
   
         <div class="footer">
             <p>© 2025 HAPRIAN NATURALS. All Rights Reserved.</p>
